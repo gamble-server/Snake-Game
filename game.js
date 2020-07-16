@@ -2,13 +2,15 @@
 void setup () {
     size(window.innerWidth, window.innerHeight);
     textFont(createFont('Rowdies'));
+    noStroke();
 }
 width = window.innerWidth;
 height = window.innerHeight;
 
-var scene = 'game';
+var scene = 'start';
 int timer = 0;
 var screenshot = null;
+var msClicked = false;
 
 var checkDir = function (curDir, newDir) {
     switch (curDir) {
@@ -150,8 +152,17 @@ Snake.prototype.collide = function () {
 var snake = new Snake();
 
 void draw () {
-    size(window.innerWidth, window.innerHeight);
     switch (scene) {
+        case 'start':
+            background(0, 255, 0);
+            fill(0);
+            textAlign(CENTER);
+            textSize(100);
+            text('Click to Play', width/2, height/2);
+            if (msClicked === true) {
+                scene = 'game';
+            }
+            break;
         case 'game':
             background(0, 255, 0);
             food.draw();
@@ -180,4 +191,9 @@ void draw () {
             }
             break;
     }
+    msClicked = false;
+};
+
+void mouseClicked () {
+    msClicked = true;
 };
